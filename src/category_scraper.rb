@@ -85,8 +85,8 @@ page_urls.each_with_index do |page, index|
   end
 
   # uncomment to write comment about page ending to csv
-  CSV.open(file_name, write_mode) do |csv|
-    csv << ["# ----- end of #{index+1} page -----"]
-  end
+  # CSV.open(file_name, write_mode) do |csv|
+  #   csv << ["# ----- end of #{index+1} page -----"]
+  # end
 
 end
