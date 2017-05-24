@@ -6,12 +6,13 @@ require 'csv'
 #take command line args
 category_url = ARGV[0]
 file_name = ARGV[1]
+# uncomment to work without command line args
 # category_url = 'https://www.petsonic.com/snacks-huesos-para-perros/'
 # file_name = 'output.csv'
 write_mode = 'a'
 pagination_postfix = '?p='
 
-# clear file if exists
+# clear file if exists (comment if no need)
 CSV.open(file_name, 'w')
 
 # define final url value if redirected
