@@ -1,4 +1,5 @@
 require 'open-uri'
+require 'open_uri_redirections'
 require 'nokogiri'
 require 'csv'
 
@@ -13,15 +14,21 @@ pagination_postfix = '?p='
 # clear file if exists
 CSV.open(file_name, 'w')
 
+# define final url value if redirected
+final_url = ''
+open(category_url, :allow_redirections => :all) do |resp|
+  final_url = resp.base_uri.to_s
+end
+
 # build category page
-category_html = open(category_url)
+category_html = open(final_url)
 category_doc = Nokogiri::HTML(category_html)
 page_number = category_doc.css('ul.pagination.pull-left>li:not([class="pagination_next"]) a span').last.content.to_i
 
 # collect category pagination page urls
 page_urls = []
 (1..page_number).each { |i|
-  page_urls.push(category_url + pagination_postfix + i.to_s)
+  page_urls.push(final_url + pagination_postfix + i.to_s)
 }
 
 # process script for each page
